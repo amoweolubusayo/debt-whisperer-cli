@@ -1,9 +1,10 @@
-import { Trash2, Clock, Percent } from "lucide-react";
+import { Trash2, Clock, Percent, Edit2 } from "lucide-react";
 import type { Debt } from "@/lib/debt-engine";
 
 interface DebtListProps {
   debts: Debt[];
   onRemove: (id: string) => void;
+  onEdit: (debt: Debt) => void;
 }
 
 export function DebtList({ debts, onRemove }: DebtListProps) {
