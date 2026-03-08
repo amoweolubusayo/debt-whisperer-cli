@@ -12,13 +12,24 @@ interface DebtFormProps {
   initialData?: Debt | null;
 }
 
-export function DebtForm({ onAdd, onCancel }: DebtFormProps) {
-  const [name, setName] = useState("");
-  const [balance, setBalance] = useState("");
-  const [apr, setApr] = useState("");
-  const [minPayment, setMinPayment] = useState("");
-  const [hasPromo, setHasPromo] = useState(false);
-  const [promoMonths, setPromoMonths] = useState("");
+export function DebtForm({ onAdd, onCancel, initialData }: DebtFormProps) {
+  const [name, setName] = useState(initialData?.name || "");
+  const [balance, setBalance] = useState(initialData?.balance?.toString() || "");
+  const [apr, setApr] = useState(initialData?.apr?.toString() || "");
+  const [minPayment, setMinPayment] = useState(initialData?.minimumPayment?.toString() || "");
+  const [hasPromo, setHasPromo] = useState(!!initialData?.promoAprEnd);
+  const [promoMonths, setPromoMonths] = useState(initialData?.promoAprEnd?.toString() || "");
+
+  useEffect(() => {
+    if (initialData) {
+      setName(initialData.name);
+      setBalance(initialData.balance.toString());
+      setApr(initialData.apr.toString());
+      setMinPayment(initialData.minimumPayment.toString());
+      setHasPromo(!!initialData.promoAprEnd);
+      setPromoMonths(initialData.promoAprEnd?.toString() || "");
+    }
+  }, [initialData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
