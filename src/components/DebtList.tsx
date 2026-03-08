@@ -32,9 +32,9 @@ export function DebtList({ debts, onRemove }: DebtListProps) {
               )}
             </div>
             <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground font-mono">
-              <span>${debt.balance.toLocaleString()}</span>
+              <span>£{debt.balance.toLocaleString()}</span>
               <span className="flex items-center gap-0.5"><Percent className="h-3 w-3" />{debt.apr}</span>
-              <span>${debt.minimumPayment}/mo</span>
+              <span>£{debt.minimumPayment}/mo</span>
             </div>
           </div>
           <button onClick={() => onRemove(debt.id)} className="ml-2 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-destructive">
