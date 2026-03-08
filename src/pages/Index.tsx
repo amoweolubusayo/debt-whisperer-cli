@@ -61,7 +61,7 @@ const Index = () => {
             <div className="rounded-lg border border-border bg-card p-3">
               <Label className="text-xs text-muted-foreground">Extra Monthly Payment</Label>
               <div className="mt-1 flex items-center gap-2">
-                <span className="text-sm text-muted-foreground font-mono">$</span>
+                <span className="text-sm text-muted-foreground font-mono">£</span>
                 <Input
                   type="number"
                   value={extraPayment}

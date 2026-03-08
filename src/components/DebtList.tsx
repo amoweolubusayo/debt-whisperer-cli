@@ -43,8 +43,8 @@ export function DebtList({ debts, onRemove }: DebtListProps) {
         </div>
       ))}
       <div className="flex justify-between rounded-lg bg-muted px-3 py-2 text-xs font-mono">
-        <span className="text-muted-foreground">Total: <span className="text-foreground">${totalBalance.toLocaleString()}</span></span>
-        <span className="text-muted-foreground">Min/mo: <span className="text-foreground">${totalMinPayment.toLocaleString()}</span></span>
+        <span className="text-muted-foreground">Total: <span className="text-foreground">£{totalBalance.toLocaleString()}</span></span>
+        <span className="text-muted-foreground">Min/mo: <span className="text-foreground">£{totalMinPayment.toLocaleString()}</span></span>
       </div>
     </div>
   );

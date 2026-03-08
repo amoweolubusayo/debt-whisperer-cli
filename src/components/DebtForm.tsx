@@ -62,7 +62,7 @@ export function DebtForm({ onAdd, onCancel }: DebtFormProps) {
           <Input type="number" step="0.01" value={apr} onChange={(e) => setApr(e.target.value)} placeholder="22.99" className="mt-1 bg-muted border-border font-mono text-sm" />
         </div>
         <div>
-          <Label className="text-xs text-muted-foreground">Min Payment ($)</Label>
+          <Label className="text-xs text-muted-foreground">Min Payment (£)</Label>
           <Input type="number" step="0.01" value={minPayment} onChange={(e) => setMinPayment(e.target.value)} placeholder="150" className="mt-1 bg-muted border-border font-mono text-sm" />
         </div>
         <div className="flex flex-col justify-end">
