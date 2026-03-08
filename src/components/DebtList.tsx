@@ -7,7 +7,7 @@ interface DebtListProps {
   onEdit: (debt: Debt) => void;
 }
 
-export function DebtList({ debts, onRemove }: DebtListProps) {
+export function DebtList({ debts, onRemove, onEdit }: DebtListProps) {
   if (debts.length === 0) {
     return (
       <div className="rounded-lg border border-dashed border-border p-8 text-center">
