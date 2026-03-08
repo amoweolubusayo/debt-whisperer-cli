@@ -35,7 +35,7 @@ export function DebtForm({ onAdd, onCancel, initialData }: DebtFormProps) {
     e.preventDefault();
     if (!name || !balance || !apr || !minPayment) return;
     onAdd({
-      id: crypto.randomUUID(),
+      id: initialData?.id || crypto.randomUUID(),
       name,
       balance: parseFloat(balance),
       apr: parseFloat(apr),
