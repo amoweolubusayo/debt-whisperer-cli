@@ -91,7 +91,8 @@ export function DebtForm({ onAdd, onCancel, initialData }: DebtFormProps) {
         )}
       </div>
       <Button type="submit" className="w-full gap-2">
-        <Plus className="h-4 w-4" /> Add Debt
+        {initialData ? <Edit2 className="h-4 w-4" /> : <Plus className="h-4 w-4" />} 
+        {initialData ? "Save Changes" : "Add Debt"}
       </Button>
     </form>
   );
