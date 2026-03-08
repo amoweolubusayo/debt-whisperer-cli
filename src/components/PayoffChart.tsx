@@ -39,7 +39,7 @@ export function PayoffChart({ result }: PayoffChartProps) {
               tick={{ fill: "hsl(215, 12%, 50%)", fontSize: 11, fontFamily: "JetBrains Mono" }}
               axisLine={false}
               tickLine={false}
-              tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
+              tickFormatter={(v) => `£${(v / 1000).toFixed(0)}k`}
             />
             <Tooltip
               contentStyle={{
