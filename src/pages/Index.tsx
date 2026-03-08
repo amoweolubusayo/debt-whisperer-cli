@@ -29,7 +29,7 @@ const Index = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-foreground tracking-tight">
-            <span className="text-primary">$</span> Debt Planner
+            <span className="text-primary">£</span> Debt Planner
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">Simulate payoff strategies. Crush your debt faster.</p>
         </div>
@@ -61,7 +61,7 @@ const Index = () => {
             <div className="rounded-lg border border-border bg-card p-3">
               <Label className="text-xs text-muted-foreground">Extra Monthly Payment</Label>
               <div className="mt-1 flex items-center gap-2">
-                <span className="text-sm text-muted-foreground font-mono">$</span>
+                <span className="text-sm text-muted-foreground font-mono">£</span>
                 <Input
                   type="number"
                   value={extraPayment}

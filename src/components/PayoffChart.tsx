@@ -39,7 +39,7 @@ export function PayoffChart({ result }: PayoffChartProps) {
               tick={{ fill: "hsl(215, 12%, 50%)", fontSize: 11, fontFamily: "JetBrains Mono" }}
               axisLine={false}
               tickLine={false}
-              tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
+              tickFormatter={(v) => `£${(v / 1000).toFixed(0)}k`}
             />
             <Tooltip
               contentStyle={{
@@ -50,7 +50,7 @@ export function PayoffChart({ result }: PayoffChartProps) {
                 fontSize: 12,
               }}
               labelFormatter={(v) => `Month ${v}`}
-              formatter={(value: number) => [`$${value.toLocaleString()}`, "Balance"]}
+              formatter={(value: number) => [`£${value.toLocaleString()}`, "Balance"]}
             />
             <Area type="monotone" dataKey="balance" stroke="hsl(168, 80%, 48%)" fill="url(#balanceGrad)" strokeWidth={2} />
           </AreaChart>

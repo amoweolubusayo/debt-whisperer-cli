@@ -1,4 +1,4 @@
-import { Calendar, DollarSign, TrendingDown, Trophy } from "lucide-react";
+import { Calendar, PoundSterling, TrendingDown, Trophy } from "lucide-react";
 import type { PayoffResult } from "@/lib/debt-engine";
 
 interface PayoffSummaryProps {
@@ -21,10 +21,10 @@ export function PayoffSummary({ result, comparisonResult, strategyLabel }: Payof
       <h3 className="text-sm font-medium text-foreground">{strategyLabel} Strategy</h3>
       <div className="grid grid-cols-2 gap-3">
         <StatCard icon={<Calendar className="h-4 w-4 text-primary" />} label="Payoff Time" value={`${years > 0 ? `${years}y ` : ""}${months}mo`} />
-        <StatCard icon={<DollarSign className="h-4 w-4 text-destructive" />} label="Total Interest" value={`$${Math.round(result.totalInterestPaid).toLocaleString()}`} />
+        <StatCard icon={<PoundSterling className="h-4 w-4 text-destructive" />} label="Total Interest" value={`£${Math.round(result.totalInterestPaid).toLocaleString()}`} />
         <StatCard icon={<TrendingDown className="h-4 w-4 text-primary" />} label="Total Months" value={`${result.totalMonths}`} />
         {saved > 0 && (
-          <StatCard icon={<Trophy className="h-4 w-4 text-warning" />} label="Interest Saved" value={`$${Math.round(saved).toLocaleString()}`} highlight />
+          <StatCard icon={<Trophy className="h-4 w-4 text-warning" />} label="Interest Saved" value={`£${Math.round(saved).toLocaleString()}`} highlight />
         )}
       </div>
       {result.debtPayoffOrder.length > 0 && (
