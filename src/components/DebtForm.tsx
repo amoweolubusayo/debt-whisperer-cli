@@ -54,7 +54,7 @@ export function DebtForm({ onAdd, onCancel }: DebtFormProps) {
           <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Credit Card #1" className="mt-1 bg-muted border-border font-mono text-sm" />
         </div>
         <div>
-          <Label className="text-xs text-muted-foreground">Balance ($)</Label>
+          <Label className="text-xs text-muted-foreground">Balance (£)</Label>
           <Input type="number" step="0.01" value={balance} onChange={(e) => setBalance(e.target.value)} placeholder="5,000" className="mt-1 bg-muted border-border font-mono text-sm" />
         </div>
         <div>
