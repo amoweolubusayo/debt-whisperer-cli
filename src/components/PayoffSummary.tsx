@@ -1,4 +1,4 @@
-import { Calendar, DollarSign, TrendingDown, Trophy } from "lucide-react";
+import { Calendar, PoundSterling, TrendingDown, Trophy } from "lucide-react";
 import type { PayoffResult } from "@/lib/debt-engine";
 
 interface PayoffSummaryProps {
