@@ -29,7 +29,7 @@ const Index = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-foreground tracking-tight">
-            <span className="text-primary">$</span> Debt Planner
+            <span className="text-primary">£</span> Debt Planner
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">Simulate payoff strategies. Crush your debt faster.</p>
         </div>
