@@ -105,14 +105,25 @@ const Index = () => {
 
             {/* Debt Form / List */}
             {showForm ? (
-              <DebtForm onAdd={handleAdd} onCancel={debts.length > 0 ? () => setShowForm(false) : undefined} />
+              <DebtForm 
+                onAdd={handleAddOrUpdate} 
+                onCancel={debts.length > 0 ? () => {
+                  setShowForm(false);
+                  setEditingDebt(null);
+                } : undefined} 
+                initialData={editingDebt}
+              />
             ) : (
               <Button variant="outline" className="w-full gap-2" onClick={() => setShowForm(true)}>
                 <Plus className="h-4 w-4" /> Add Another Debt
               </Button>
             )}
 
-            <DebtList debts={debts} onRemove={(id) => setDebts((prev) => prev.filter((d) => d.id !== id))} />
+            <DebtList 
+              debts={debts} 
+              onEdit={handleEdit}
+              onRemove={(id) => setDebts((prev) => prev.filter((d) => d.id !== id))} 
+            />
           </div>
 
           {/* Right: Results */}
