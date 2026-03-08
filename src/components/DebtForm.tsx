@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Plus, X, Edit2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,21 +9,33 @@ import type { Debt } from "@/lib/debt-engine";
 interface DebtFormProps {
   onAdd: (debt: Debt) => void;
   onCancel?: () => void;
+  initialData?: Debt | null;
 }
 
-export function DebtForm({ onAdd, onCancel }: DebtFormProps) {
-  const [name, setName] = useState("");
-  const [balance, setBalance] = useState("");
-  const [apr, setApr] = useState("");
-  const [minPayment, setMinPayment] = useState("");
-  const [hasPromo, setHasPromo] = useState(false);
-  const [promoMonths, setPromoMonths] = useState("");
+export function DebtForm({ onAdd, onCancel, initialData }: DebtFormProps) {
+  const [name, setName] = useState(initialData?.name || "");
+  const [balance, setBalance] = useState(initialData?.balance?.toString() || "");
+  const [apr, setApr] = useState(initialData?.apr?.toString() || "");
+  const [minPayment, setMinPayment] = useState(initialData?.minimumPayment?.toString() || "");
+  const [hasPromo, setHasPromo] = useState(!!initialData?.promoAprEnd);
+  const [promoMonths, setPromoMonths] = useState(initialData?.promoAprEnd?.toString() || "");
+
+  useEffect(() => {
+    if (initialData) {
+      setName(initialData.name);
+      setBalance(initialData.balance.toString());
+      setApr(initialData.apr.toString());
+      setMinPayment(initialData.minimumPayment.toString());
+      setHasPromo(!!initialData.promoAprEnd);
+      setPromoMonths(initialData.promoAprEnd?.toString() || "");
+    }
+  }, [initialData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !balance || !apr || !minPayment) return;
     onAdd({
-      id: crypto.randomUUID(),
+      id: initialData?.id || crypto.randomUUID(),
       name,
       balance: parseFloat(balance),
       apr: parseFloat(apr),
@@ -41,7 +53,7 @@ export function DebtForm({ onAdd, onCancel }: DebtFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-border bg-card p-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium text-foreground">Add Debt</h3>
+        <h3 className="text-sm font-medium text-foreground">{initialData ? "Edit Debt" : "Add Debt"}</h3>
         {onCancel && (
           <button type="button" onClick={onCancel} className="text-muted-foreground hover:text-foreground">
             <X className="h-4 w-4" />
@@ -79,7 +91,8 @@ export function DebtForm({ onAdd, onCancel }: DebtFormProps) {
         )}
       </div>
       <Button type="submit" className="w-full gap-2">
-        <Plus className="h-4 w-4" /> Add Debt
+        {initialData ? <Edit2 className="h-4 w-4" /> : <Plus className="h-4 w-4" />} 
+        {initialData ? "Save Changes" : "Add Debt"}
       </Button>
     </form>
   );

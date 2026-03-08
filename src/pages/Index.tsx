@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Zap, Snowflake, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,17 +10,49 @@ import { PayoffSummary } from "@/components/PayoffSummary";
 import { simulatePayoff, type Debt, type Strategy } from "@/lib/debt-engine";
 
 const Index = () => {
-  const [debts, setDebts] = useState<Debt[]>([]);
-  const [strategy, setStrategy] = useState<Strategy>("avalanche");
-  const [extraPayment, setExtraPayment] = useState(200);
-  const [showForm, setShowForm] = useState(true);
+  const [debts, setDebts] = useState<Debt[]>(() => {
+    const saved = localStorage.getItem("debt-planner-debts");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [strategy, setStrategy] = useState<Strategy>(() => {
+    const saved = localStorage.getItem("debt-planner-strategy");
+    return (saved as Strategy) || "avalanche";
+  });
+  const [extraPayment, setExtraPayment] = useState(() => {
+    const saved = localStorage.getItem("debt-planner-extra");
+    return saved ? JSON.parse(saved) : 200;
+  });
+  const [showForm, setShowForm] = useState(() => debts.length === 0);
+  const [editingDebt, setEditingDebt] = useState<Debt | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("debt-planner-debts", JSON.stringify(debts));
+  }, [debts]);
+
+  useEffect(() => {
+    localStorage.setItem("debt-planner-strategy", strategy);
+  }, [strategy]);
+
+  useEffect(() => {
+    localStorage.setItem("debt-planner-extra", JSON.stringify(extraPayment));
+  }, [extraPayment]);
 
   const result = useMemo(() => simulatePayoff(debts, strategy, extraPayment), [debts, strategy, extraPayment]);
   const altResult = useMemo(() => simulatePayoff(debts, strategy === "avalanche" ? "snowball" : "avalanche", extraPayment), [debts, strategy, extraPayment]);
 
-  const handleAdd = (debt: Debt) => {
-    setDebts((prev) => [...prev, debt]);
+  const handleAddOrUpdate = (debt: Debt) => {
+    if (editingDebt) {
+      setDebts((prev) => prev.map((d) => (d.id === debt.id ? debt : d)));
+      setEditingDebt(null);
+    } else {
+      setDebts((prev) => [...prev, debt]);
+    }
     setShowForm(false);
+  };
+
+  const handleEdit = (debt: Debt) => {
+    setEditingDebt(debt);
+    setShowForm(true);
   };
 
   return (
@@ -73,14 +105,25 @@ const Index = () => {
 
             {/* Debt Form / List */}
             {showForm ? (
-              <DebtForm onAdd={handleAdd} onCancel={debts.length > 0 ? () => setShowForm(false) : undefined} />
+              <DebtForm 
+                onAdd={handleAddOrUpdate} 
+                onCancel={debts.length > 0 ? () => {
+                  setShowForm(false);
+                  setEditingDebt(null);
+                } : undefined} 
+                initialData={editingDebt}
+              />
             ) : (
               <Button variant="outline" className="w-full gap-2" onClick={() => setShowForm(true)}>
                 <Plus className="h-4 w-4" /> Add Another Debt
               </Button>
             )}
 
-            <DebtList debts={debts} onRemove={(id) => setDebts((prev) => prev.filter((d) => d.id !== id))} />
+            <DebtList 
+              debts={debts} 
+              onEdit={handleEdit}
+              onRemove={(id) => setDebts((prev) => prev.filter((d) => d.id !== id))} 
+            />
           </div>
 
           {/* Right: Results */}

@@ -1,12 +1,13 @@
-import { Trash2, Clock, Percent } from "lucide-react";
+import { Trash2, Clock, Percent, Edit2 } from "lucide-react";
 import type { Debt } from "@/lib/debt-engine";
 
 interface DebtListProps {
   debts: Debt[];
   onRemove: (id: string) => void;
+  onEdit: (debt: Debt) => void;
 }
 
-export function DebtList({ debts, onRemove }: DebtListProps) {
+export function DebtList({ debts, onRemove, onEdit }: DebtListProps) {
   if (debts.length === 0) {
     return (
       <div className="rounded-lg border border-dashed border-border p-8 text-center">
@@ -37,9 +38,14 @@ export function DebtList({ debts, onRemove }: DebtListProps) {
               <span>£{debt.minimumPayment}/mo</span>
             </div>
           </div>
-          <button onClick={() => onRemove(debt.id)} className="ml-2 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-destructive">
-            <Trash2 className="h-4 w-4" />
-          </button>
+          <div className="ml-2 flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+            <button onClick={() => onEdit(debt)} className="p-1 text-muted-foreground hover:text-foreground">
+              <Edit2 className="h-4 w-4" />
+            </button>
+            <button onClick={() => onRemove(debt.id)} className="p-1 text-muted-foreground hover:text-destructive">
+              <Trash2 className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       ))}
       <div className="flex justify-between rounded-lg bg-muted px-3 py-2 text-xs font-mono">
