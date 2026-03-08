@@ -10,17 +10,49 @@ import { PayoffSummary } from "@/components/PayoffSummary";
 import { simulatePayoff, type Debt, type Strategy } from "@/lib/debt-engine";
 
 const Index = () => {
-  const [debts, setDebts] = useState<Debt[]>([]);
-  const [strategy, setStrategy] = useState<Strategy>("avalanche");
-  const [extraPayment, setExtraPayment] = useState(200);
-  const [showForm, setShowForm] = useState(true);
+  const [debts, setDebts] = useState<Debt[]>(() => {
+    const saved = localStorage.getItem("debt-planner-debts");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [strategy, setStrategy] = useState<Strategy>(() => {
+    const saved = localStorage.getItem("debt-planner-strategy");
+    return (saved as Strategy) || "avalanche";
+  });
+  const [extraPayment, setExtraPayment] = useState(() => {
+    const saved = localStorage.getItem("debt-planner-extra");
+    return saved ? JSON.parse(saved) : 200;
+  });
+  const [showForm, setShowForm] = useState(() => debts.length === 0);
+  const [editingDebt, setEditingDebt] = useState<Debt | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("debt-planner-debts", JSON.stringify(debts));
+  }, [debts]);
+
+  useEffect(() => {
+    localStorage.setItem("debt-planner-strategy", strategy);
+  }, [strategy]);
+
+  useEffect(() => {
+    localStorage.setItem("debt-planner-extra", JSON.stringify(extraPayment));
+  }, [extraPayment]);
 
   const result = useMemo(() => simulatePayoff(debts, strategy, extraPayment), [debts, strategy, extraPayment]);
   const altResult = useMemo(() => simulatePayoff(debts, strategy === "avalanche" ? "snowball" : "avalanche", extraPayment), [debts, strategy, extraPayment]);
 
-  const handleAdd = (debt: Debt) => {
-    setDebts((prev) => [...prev, debt]);
+  const handleAddOrUpdate = (debt: Debt) => {
+    if (editingDebt) {
+      setDebts((prev) => prev.map((d) => (d.id === debt.id ? debt : d)));
+      setEditingDebt(null);
+    } else {
+      setDebts((prev) => [...prev, debt]);
+    }
     setShowForm(false);
+  };
+
+  const handleEdit = (debt: Debt) => {
+    setEditingDebt(debt);
+    setShowForm(true);
   };
 
   return (
