@@ -9,6 +9,7 @@ import type { Debt } from "@/lib/debt-engine";
 interface DebtFormProps {
   onAdd: (debt: Debt) => void;
   onCancel?: () => void;
+  initialData?: Debt | null;
 }
 
 export function DebtForm({ onAdd, onCancel }: DebtFormProps) {
