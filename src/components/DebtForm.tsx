@@ -53,7 +53,7 @@ export function DebtForm({ onAdd, onCancel, initialData }: DebtFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-border bg-card p-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium text-foreground">Add Debt</h3>
+        <h3 className="text-sm font-medium text-foreground">{initialData ? "Edit Debt" : "Add Debt"}</h3>
         {onCancel && (
           <button type="button" onClick={onCancel} className="text-muted-foreground hover:text-foreground">
             <X className="h-4 w-4" />
