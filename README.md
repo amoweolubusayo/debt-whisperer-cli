@@ -6,9 +6,14 @@
 
 ## Screenshots
 
-*(To add actual screenshots or GIFs, take a capture of your screen, upload it to the `public/` directory, and link it here. E.g., `![Dashboard](public/screenshot.png)`)*
+**Single debt — Avalanche strategy**
+![Single debt view](public/screenshot-1.png)
 
-![Debt Planner Dashboard](public/placeholder.svg)
+**Multiple debts — Avalanche vs Snowball comparison**
+![Multiple debts view](public/screenshot-2.png)
+
+**Three debts — Snowball selected, interest saved highlighted**
+![Snowball strategy with interest saved](public/screenshot-3.png)
 
 ## How can I edit this code?
 
