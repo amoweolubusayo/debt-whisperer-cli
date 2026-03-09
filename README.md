@@ -4,6 +4,12 @@
 
 **URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
+## Screenshots
+
+*(To add actual screenshots or GIFs, take a capture of your screen, upload it to the `public/` directory, and link it here. E.g., `![Dashboard](public/screenshot.png)`)*
+
+![Debt Planner Dashboard](public/placeholder.svg)
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
